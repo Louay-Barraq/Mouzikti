@@ -1,0 +1,1 @@
+"""gui package — Mouzikti desktop application."""
