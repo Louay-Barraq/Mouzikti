@@ -1,0 +1,21 @@
+// error_test.mzt
+// Intentional errors — used to verify the compiler error pipeline.
+// Expected errors:
+//   line 4  — tempo 500bpm warning (unusually high)
+//   line 10 — unknown instrument "trompette"
+//   line 11 — note "Sol#3" not in scale "La mineur"
+//   line 13 — volume 1.5 out of range
+
+piste "Error Demo" {
+  tempo: 500bpm
+  tonalité: "La mineur"
+  durée: 4_mesures
+
+  mélodie instrument: trompette {
+    mesure 1..2 {
+      note(Sol3, noire)
+      note(Do4, noire)
+    }
+    effets { volume: 1.5 }
+  }
+}

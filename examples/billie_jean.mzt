@@ -1,0 +1,42 @@
+// examples/billie_jean.mzt
+// Michael Jackson — Billie Jean (Main Theme)
+// Showcase of bass-driven pop arrangement.
+
+piste "Billie Jean" {
+  tempo: 117bpm
+  tonalité: "La mineur" // Actually F# minor, using Am as baseline for this engine
+  durée: 8_mesures
+
+  batterie {
+    mesure {
+      kick  : [X . . . . . . . X . . . . . . .]
+      snare : [. . . . X . . . . . . . X . . .]
+      hihat : [X . X . X . X . X . X . X . X .]
+    }
+    répéter 4
+  }
+
+  mélodie instrument: synthé {
+    // Synth Chords (Staccato)
+    mesure 1..8 {
+      accord(La_mineur, noire)
+      note(La3, noire) // Rest/Space placeholder
+      accord(La_mineur, noire)
+      note(La3, noire)
+    }
+  }
+
+  mélodie instrument: basse_électrique {
+    // Iconic Bassline
+    mesure 1..8 {
+      note(La1, croche)
+      note(Mi1, croche)
+      note(Sol1, croche)
+      note(La1, croche)
+      note(Sol1, croche)
+      note(Mi1, croche)
+      note(Ré1, croche)
+      note(Mi1, croche)
+    }
+  }
+}

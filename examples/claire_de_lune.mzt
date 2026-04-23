@@ -1,0 +1,43 @@
+// examples/claire_de_lune.mzt
+// Claude Debussy — Suite bergamasque: III. Clair de Lune (Opening)
+// Showcase of Mouzikti's ability to handle complex classical harmony and slow tempos.
+
+piste "Clair de Lune" {
+  tempo: 50bpm
+  tonalité: "Ré mineur"
+  durée: 8_mesures
+
+  mélodie instrument: piano {
+    // Measure 1: Opening chords
+    mesure 1 {
+      note(Fa4, blanche)
+      note(Fa4, blanche)
+    }
+    
+    // Measure 2: Descending motif
+    mesure 2 {
+      note(Fa4, noire)
+      note(Mi4, noire)
+      note(Ré4, noire)
+      note(Do4, noire)
+    }
+
+    // Measure 3: Arpeggiated texture
+    mesure 3 {
+      accord(Fa_majeur, blanche)
+      accord(Ré_mineur, blanche)
+    }
+
+    mesure 4..8 {
+      accord(Ré_mineur, ronde)
+    }
+    
+    effets { reverb: 0.6, volume: 0.9 }
+  }
+
+  mélodie instrument: piano {
+    mesure 1..4 { note(Ré2, ronde) }
+    mesure 5..8 { note(Do2, ronde) }
+  }
+}
+

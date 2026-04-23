@@ -1,0 +1,32 @@
+// examples/seven_nation_army.mzt
+// The White Stripes — Seven Nation Army (Main Riff)
+// Showcase of simple, powerful melodic layers.
+
+piste "Seven Nation Army" {
+  tempo: 124bpm
+  tonalité: "La mineur"
+  durée: 8_mesures
+
+  batterie {
+    mesure {
+      kick  : [X . . . X . . . X . . . X . . .]
+      snare : [. . . . X . . . . . . . X . . .]
+      hihat : [X X X X X X X X X X X X X X X X]
+    }
+    répéter 8
+  }
+
+  mélodie instrument: guitare {
+    // Famous Riff
+    mesure 1..8 {
+      note(La2, noire)
+      note(La2, croche)
+      note(Do3, croche)
+      note(La2, croche)
+      note(Sol2, croche)
+      note(Fa2, blanche)
+      note(Mi2, blanche)
+    }
+  }
+}
+

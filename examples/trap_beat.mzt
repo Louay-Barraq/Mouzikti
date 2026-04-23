@@ -1,0 +1,17 @@
+// trap_beat.mzt
+// Drums-only example — trap pattern
+
+piste "Trap Vibes" {
+  tempo: 140bpm
+  durée: 16_mesures
+
+  batterie {
+    mesure {
+      kick  : [X . . X . . X . . . X . . X . .]
+      snare : [. . . . X . . . . . . . X . . .]
+      hihat : [X X X X X X X X X X X X X X X X]
+      clap  : [. . . . X . . . . . . . X . . .]
+    }
+    répéter 16
+  }
+}

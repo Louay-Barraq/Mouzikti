@@ -1,0 +1,17 @@
+// simple_melody.mzt
+// Minimal working example — melody only, no drums
+
+piste "Simple Test" {
+  tempo: 100bpm
+  tonalité: "La mineur"
+  durée: 4_mesures
+
+  mélodie instrument: piano {
+    mesure 1..4 {
+      note(La3, noire)
+      note(Do4, noire)
+      note(Mi4, noire)
+      note(La3, blanche)
+    }
+  }
+}

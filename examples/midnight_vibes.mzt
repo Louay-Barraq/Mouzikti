@@ -1,0 +1,38 @@
+// midnight_vibes.mzt
+// Full track example — melody + bass + drums
+
+piste "Midnight Vibes" {
+  tempo: 120bpm
+  tonalité: "La mineur"
+  durée: 32_mesures
+
+  batterie {
+    mesure {
+      kick  : [X . . . X . . . X . . . X . . .]
+      snare : [. . . . X . . . . . . . X . . .]
+      hihat : [X X X X X X X X X X X X X X X X]
+    }
+    effets { reverb: 0.4, swing: 0.2 }
+    répéter 4
+  }
+
+  mélodie instrument: piano {
+    mesure 1..4 {
+      note(La3, noire)
+      note(Do4, croche)
+      note(Mi4, croche)
+      accord(La_mineur, blanche)
+    }
+    mesure 5..8 {
+      note(Sol3, noire)
+      note(La3, noire)
+      note(Do4, blanche)
+    }
+    effets { echo: 0.3, volume: 0.8 }
+  }
+
+  basse instrument: basse_électrique {
+    suivre accord_actuel racine: oui
+    rythme: [X . X . . X . .]
+  }
+}
