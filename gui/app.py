@@ -129,7 +129,7 @@ class MouziktiApp(ctk.CTk):
         bottom_frame.grid(row=2, column=0, sticky="ew", padx=8, pady=(0, 4))
         bottom_frame.grid_columnconfigure(0, weight=1)
 
-        self.console = Console(bottom_frame, height=120)
+        self.console = Console(bottom_frame, height=220)
         self.console.grid(row=0, column=0, sticky="ew")
 
         self._status_var = ctk.StringVar(value="Ready")
@@ -398,13 +398,18 @@ class MouziktiApp(ctk.CTk):
 
     def _find_soundfont(self) -> str | None:
         """Find a usable .sf2 soundfont path."""
-        # Check current directory for default.sf2 first (priority)
+        # 1. Check environment variable first (highest priority)
+        env_sf = os.environ.get("FLUIDSYNTH_SOUNDFONT")
+        if env_sf and os.path.isfile(env_sf):
+            return env_sf
+
+        # 2. Check current directory for default.sf2
         local_default = os.path.join(os.getcwd(), "default.sf2")
         if os.path.isfile(local_default):
             return local_default
 
+        # 3. Check other candidates
         candidates = [
-            os.environ.get("FLUIDSYNTH_SOUNDFONT", ""),
             "soundfont.sf2",
             os.path.expanduser("~/.fluidsynth/default_sound_font.sf2"),
             "/opt/homebrew/share/soundfonts/FluidR3_GM.sf2",

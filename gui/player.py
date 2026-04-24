@@ -42,6 +42,7 @@ class AudioPlayer(ctk.CTkFrame):
         self._duration_s: float = 0.0
         self._start_time: float = 0.0
         self._elapsed_base: float = 0.0
+        self._paused_volume: float = 0.8
         self._poll_job = None
         self._on_progress = on_progress
 
@@ -182,19 +183,27 @@ class AudioPlayer(ctk.CTkFrame):
             return
         
         if self._playing:
+            self._paused_volume = float(self._vol_slider.get())
             music.pause()
+            music.set_volume(0.0)
             self._playing = False
             self._paused = True
+            # Update elapsed_base with the time spent in the current playback session
             self._elapsed_base += time.perf_counter() - self._start_time
             self._play_btn.configure(text="▶")
             if self._poll_job:
                 self.after_cancel(self._poll_job)
+                self._poll_job = None
         else:
             if self._paused:
                 music.unpause()
+                music.set_volume(self._paused_volume)
             else:
+                # If we were stopped or finished, reset elapsed_base
+                self._elapsed_base = 0.0
                 music.load(self._midi_path)
                 music.play()
+                music.set_volume(float(self._vol_slider.get()))
             
             self._playing = True
             self._paused = False
@@ -207,6 +216,7 @@ class AudioPlayer(ctk.CTkFrame):
         music = self._music()
         if music is not None:
             music.stop()
+            music.set_volume(float(self._vol_slider.get()))
         self._playing = False
         self._paused = False
         self._elapsed_base = 0.0
@@ -241,7 +251,9 @@ class AudioPlayer(ctk.CTkFrame):
 
     def _start_poll(self) -> None:
         """Poll playback position every 50ms to update progress bar."""
-        self._poll()
+        if self._poll_job:
+            self.after_cancel(self._poll_job)
+        self._poll_job = self.after(50, self._poll)
 
     def _poll(self) -> None:
         if not self._playing:
