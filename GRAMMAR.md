@@ -98,15 +98,23 @@ bool_literal    = "oui" | "non" ;
 
 ## Lexical Tokens (high level)
 
-- Literals: NUMBER, FLOAT, STRING, NOTE_NAME, CHORD_NAME, IDENTIFIER
-- Units: BPM, MESURES
-- Rhythm tokens: BEAT_X, BEAT_DOT
-- Delimiters/operators: braces, brackets, parens, colon, comma, equals, dotdot, plus, minus, times
-- Keywords: piste, batterie, mélodie/melodie, basse, mesure, note, accord, tempo, tonalité/tonalite,
-	durée/duree, instrument, effets, répéter/repeter, suivre, racine, rythme, volume, reverb, swing,
-	echo, oui, non, si, sinon
+- **Literals**: `NUMBER`, `FLOAT`, `STRING`, `NOTE_NAME`, `CHORD_NAME`, `IDENTIFIER`
+- **Units**: `BPM` (e.g., `120bpm`), `MESURES` (e.g., `8_mesures`)
+- **Rhythm tokens**: `X` (BEAT_X), `.` (BEAT_DOT)
+- **Delimiters/Operators**: `{`, `}`, `[`, `]`, `(`, `)`, `:`, `,`, `=`, `..`
+- **Arithmetic**: `+`, `-`, `*`
+- **Comparisons**: `==`, `!=`, `>`, `>=`, `<`, `<=`
+- **Keywords**:
+  - Structure: `piste`, `batterie`, `mélodie`/`melodie`, `basse`, `mesure`
+  - Content: `note`, `accord`, `tempo`, `tonalité`/`tonalite`, `durée`/`duree`, `instrument`, `effets`
+  - Logic: `répéter`/`repeter`, `si`, `sinon`, `oui`, `non`
+  - Bass/Rhythm: `suivre`, `racine`, `rythme`
+  - Effects: `volume`, `reverb`, `swing`, `echo`
+- **Durations**: `ronde`, `blanche`, `noire`, `croche`, `double_croche`, `triple_croche`, `blanche_pointée`, `noire_pointée`, `croche_pointée`
 
 ## Notes
 
-Condition expressions currently operate on numeric values and oui/non literals.
-Assignment variables are parse-time values scoped to each piste parse run.
+- **Conditionals**: `si/sinon` blocks allow for basic logic based on numeric comparisons or boolean literals (`oui`/`non`).
+- **Variable Scoping**: Variables assigned with `IDENTIFIER = number_val` are local to the current `piste` block and can be used in arithmetic or conditions.
+- **Rhythmic Patterns**: Drums and Bass layers use a 16-step grid by default where `X` represents a hit and `.` represents a rest.
+- **Bass Follow**: The `suivre` keyword in the `basse` block enables automatic root-note tracking based on chords played in the `mélodie` layers.

@@ -43,10 +43,12 @@ python main.py test
 
 ## Toolbar Actions
 
-- Run: compile current editor content
-- Export MIDI: save generated MIDI to chosen location
-- Export WAV: visible but currently disabled (planned feature)
-- Save/Open: .mzt file operations
+- **Run**: Compile and play current editor content.
+- **Export MIDI**: Save the generated MIDI file.
+- **Export WAV**: Render and save high-fidelity audio using FluidSynth.
+- **Export Sheet**: Export the melody layer as a MusicXML sheet.
+- **Save/Open**: Standard `.mzt` file operations.
+- **Live Badges**: Real-time display of BPM, Key, and Duration from the compiled AST.
 
 ## Language Quick Reference
 
@@ -85,36 +87,35 @@ piste "Track Name" {
 
 ## Supported Keywords
 
-- piste
-- batterie
-- mélodie / melodie
-- basse
-- mesure
-- note
-- accord
-- tempo
-- tonalité / tonalite
-- durée / duree
-- instrument
-- effets
-- répéter / repeter
-- suivre
-- racine
-- rythme
-- volume
-- reverb
-- swing
-- echo
-- oui
-- non
+- `piste`
+- `batterie`
+- `mélodie` / `melodie`
+- `basse`
+- `mesure`
+- `note`
+- `accord`
+- `tempo`
+- `tonalité` / `tonalite`
+- `durée` / `duree`
+- `instrument`
+- `effets`
+- `répéter` / `repeter`
+- `si`
+- `sinon`
+- `suivre`
+- `racine`
+- `rythme`
+- `volume`
+- `reverb`
+- `swing`
+- `echo`
+- `oui`
+- `non`
 
 ## Supported Durations
 
-- ronde
-- blanche
-- noire
-- croche
-- double_croche
+- `ronde`, `blanche`, `noire`, `croche`, `double_croche`, `triple_croche`
+- Dotted versions: `blanche_pointée`, `noire_pointée`, `croche_pointée`
 
 ## Supported Instruments
 
@@ -128,38 +129,40 @@ piste "Track Name" {
 
 ## Supported Drum Voices
 
-- kick
-- snare
-- hihat
-- clap
-- tom
-- crash
+- `kick`, `snare`, `hihat`, `clap`, `tom`, `crash`
 
-## Error Reporting
+## Supported Scales & Chords
 
-Mouzikti reports errors by stage:
+- **Scales**: Do majeur/mineur, Sol majeur, Ré majeur/mineur, La majeur/mineur, Mi majeur/mineur, Fa majeur, Si majeur, Pentatonique, Blues.
+- **Chords**: Do_majeur/mineur, Ré_majeur/mineur, Mi_majeur/mineur, Fa_majeur/mineur, Sol_majeur/mineur, La_majeur/mineur, Si_majeur/mineur.
 
-- Lexer: illegal characters and tokenization issues
-- Parser: unexpected token or missing structure
-- Semantic: music-domain validation (instrument validity, scale checks, effects range, etc.)
+## GUI & Visualization
 
-Compiler messages are emitted as structured CompilerMessage entries and displayed in the GUI console.
+Mouzikti features a triple-view visualizer:
+- **Piano Roll**: Displays notes and pitches on a timeline.
+- **Beat Grid**: Shows drum patterns and hits in a step-sequencer style.
+- **Waveform**: A synthetic preview of the song's dynamic envelope.
+
+The **Console** provides real-time feedback from the compiler stages:
+- Lexer: Tokenization issues.
+- Parser: Structural errors.
+- Semantic: Music-domain validation (key compatibility, instrument validity, etc.).
 
 ## Project Structure
 
 ```text
-main.py
-compiler/
-gui/
-examples/
-output/
-docs/
+main.py          # Entry point
+compiler/        # DSL Core (Lexer, Parser, Codegen, Music Theory)
+gui/             # CustomTkinter Desktop Application
+examples/        # Sample .mzt files
+outputs/         # Generated MIDI/WAV files
 ```
 
-## Current Scope Notes
+## Advanced Logic
 
-The implemented grammar supports tracks, battery, melody, bass, effects, repeat blocks,
-numeric variable assignments, arithmetic expressions (+, -, *), and si/sinon branching with boolean
-or numeric comparison conditions (==, !=, >, >=, <, <=).
+The implemented grammar supports:
+- **Variables**: Numeric assignments scoped to each `piste`.
+- **Expressions**: Arithmetic (`+`, `-`, `*`) and comparisons (`==`, `!=`, `>`, `>=`, `<`, `<=`).
+- **Control Flow**: Conditional `si/sinon` blocks for dynamic patterns.
 
-Some advanced PRD roadmap items remain optional/planned, such as WAV conversion backend and waveform visualization.
+WAV export requires `FluidSynth` to be installed on your system (`brew install fluid-synth` on macOS).
